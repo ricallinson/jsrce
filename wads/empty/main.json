@@ -22,14 +22,14 @@
           "next": 0
         },
         "move": {
-          "start": 0,
-          "end": 3,
-          "next": 0
-        },
-        "attack":{
           "start": 1,
           "end": 4,
           "next": 1
+        },
+        "attack":{
+          "start": 11,
+          "end": 12,
+          "next": 11
         }
       }
     }

@@ -72,6 +72,7 @@ YUI().use('node','ray-casting-engine','websocket-items','datasource','json', fun
     request: '',
     callback: {
       success: function(e){
+        
         var wadObj = Y.JSON.parse(e.data.responseText),
             wadSocket = new Y.items(wadObj);
         
