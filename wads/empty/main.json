@@ -1,0 +1,37 @@
+{
+  "start":{
+    "x": 5,
+    "y": 5
+  },
+  "map": [],
+  "textures": [
+    {"src": "wall0.gif"},
+    {"src": "wall1.gif"},
+    {"src": "wall2.gif"},
+    {"src": "wall3.gif"},
+    {"src": "wall4.gif"}
+  ],
+  "itemMap": [
+    {"type":0, "y":2, "x":2}
+  ],
+  "items": [
+    {"src" : "guard.png", "block" : true, "speed": 0, "actions": {
+        "still":{
+          "start": 0,
+          "end": 0,
+          "next": 0
+        },
+        "move": {
+          "start": 0,
+          "end": 3,
+          "next": 0
+        },
+        "attack":{
+          "start": 1,
+          "end": 4,
+          "next": 1
+        }
+      }
+    }
+  ]
+}
