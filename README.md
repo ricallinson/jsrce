@@ -1,3 +1,3 @@
 # Ray Casting Engine
 
-> node server.js
+    node server.js
