@@ -6,7 +6,7 @@
     <script type="text/javascript" src="js/yui-min.js"></script>
     <script type="text/javascript" src="js/rce.js"></script>
     <script type="text/javascript" src="js/game.js"></script>
-    <script type="text/javascript" src="js/items.js"></script>
+    <script type="text/javascript" src="js/wad-editor.js"></script>
     <style>
 body{
   background:#000;
@@ -22,9 +22,16 @@ body{
   font-size:2em;
   color:#aaa;
 }
+#wad-editor img{
+    border:2px solid #111;
+}
+#wad-editor img.selected{
+    border:2px solid red;
+}
     </style>
   </head>
   <body>
     <div id="game-screen" class="empty"></div>
+    <div id="wad-editor"></div>
   </body>
 </html>

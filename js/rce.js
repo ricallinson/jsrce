@@ -131,8 +131,8 @@ YUI.add('ray-casting-engine', function(Y) {
         }
 
         for (var i=0;i<itemMap.length;i++) {
-            itemMap[i].typeId = i;
-            itemMap[i].type = items[itemMap[i].type];
+            itemMap[i].typeId = itemMap[i].type;
+            itemMap[i].type   = items[itemMap[i].type];
         }
 
         // Prime the itemFind lookup array
@@ -672,10 +672,13 @@ YUI.add('ray-casting-engine', function(Y) {
         }
 
         for (var i=0;i<itemMap.length;i++) {
-            var sprite = itemMap[i];
-            clean[Math.floor(sprite.y)][Math.floor(sprite.x)] = sprite;
+            var sprite = itemMap[i],
+                x = Math.floor(sprite.x),
+                y = Math.floor(sprite.y);
 
-            if(clean[Math.floor(sprite.y)][Math.floor(sprite.x)] != itemFind[Math.floor(sprite.y)][Math.floor(sprite.x)]){
+            clean[y][x] = sprite;
+
+            if(clean[y][x] != itemFind[y][x]){
                 change = true;
             }
         }

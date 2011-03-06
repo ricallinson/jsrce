@@ -74,12 +74,13 @@ YUI().use('node','ray-casting-engine','wad-editor','datasource','json', function
       success: function(e){
         
         var wadObj = Y.JSON.parse(e.data.responseText),
-            wadMap = new Y.map(wadObj);
+            editor = new Y.editor(wadObj);
         
         wadObj.dir = wad;
 
         Y.rce(sky,floor,canvas,overlay,wadObj,false);
-        wadMap.drawMap(Y.one('#map'));
+        
+        editor.drawMap(Y.one('#wad-editor'));
       },
       failure: function(e){
         alert(e.error.message);
