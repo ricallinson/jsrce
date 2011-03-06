@@ -1,4 +1,4 @@
-YUI().use('node','ray-casting-engine','websocket-items','datasource','json', function(Y) {
+YUI().use('node','ray-casting-engine','wad-editor','datasource','json', function(Y) {
   var screen = Y.one('#game-screen');
 
   // First we setup the screen
@@ -74,11 +74,12 @@ YUI().use('node','ray-casting-engine','websocket-items','datasource','json', fun
       success: function(e){
         
         var wadObj = Y.JSON.parse(e.data.responseText),
-            wadSocket = new Y.items(wadObj);
+            wadMap = new Y.map(wadObj);
         
         wadObj.dir = wad;
 
-        Y.rce(sky,floor,canvas,overlay,wadSocket.start(30),false);
+        Y.rce(sky,floor,canvas,overlay,wadObj,false);
+        wadMap.drawMap(Y.one('#map'));
       },
       failure: function(e){
         alert(e.error.message);
@@ -92,6 +93,10 @@ YUI().use('node','ray-casting-engine','websocket-items','datasource','json', fun
   Y.Global.on('rce:start', function(life) {
     console.one('#life').setContent(life);
     soundStart.play();
+  });
+
+  Y.Global.on('rce:player-move', function(data) {
+    //Y.log(data);
   });
 
   Y.Global.on('rce:die', function() {

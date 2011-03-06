@@ -37,7 +37,7 @@ YUI.add('ray-casting-engine', function(Y) {
             x: 0,
             y: 0,
             z: 1,
-            r: Math.PI
+            r: 0
         },
         vel: {
             x: 0,
@@ -95,8 +95,10 @@ YUI.add('ray-casting-engine', function(Y) {
         itemMap  = wad.itemMap;
         items    = wad.items;
 
-        player.pos.x = wad.start.x;
-        player.pos.y = wad.start.y;
+        player.life  = wad.start.life || 100;
+        player.pos.x = wad.start.x || 1;
+        player.pos.y = wad.start.y || 1;
+        player.pos.r = wad.start.r || 0;
 
         mapsize.height = map.length-1;
         mapsize.width  = map[0].length-1;
@@ -129,6 +131,7 @@ YUI.add('ray-casting-engine', function(Y) {
         }
 
         for (var i=0;i<itemMap.length;i++) {
+            itemMap[i].typeId = i;
             itemMap[i].type = items[itemMap[i].type];
         }
 
@@ -462,12 +465,12 @@ YUI.add('ray-casting-engine', function(Y) {
 
         if (key[0]) {
             if (!key[1]) {
-                player.pos.r-=0.15; //left
+                player.pos.r-=0.1; //left
                 change=true;
             }
         }
         else if (key[1]) {
-            player.pos.r+=0.15; //right
+            player.pos.r+=0.1; //right
             change=true;
         }
 
@@ -495,10 +498,10 @@ YUI.add('ray-casting-engine', function(Y) {
         }
 
         if (key[2] && !key[3]) { // forward
-            if (player.vel.y<0.2) player.vel.y += 0.14;
+            if (player.vel.y<0.2) player.vel.y += 0.1;
         }
         else if (key[3] && !key[2]) { // backward
-            if (player.vel.y>-0.2) player.vel.y -= 0.14;
+            if (player.vel.y>-0.2) player.vel.y -= 0.1;
         }
         else { // stop moving
             if (player.vel.y<-0.02) player.vel.y += 0.015;
@@ -525,12 +528,12 @@ YUI.add('ray-casting-engine', function(Y) {
         }
 
         if(change){
-            Y.Global.fire('rce:move',{
+            Y.Global.fire('rce:player-move',{
                 type:0,
                 action:"move",
                 x:player.pos.x,
                 y:player.pos.y
-                });
+            });
         }
 
         // This checks all items are correct in "itemFind"
@@ -717,6 +720,16 @@ YUI.add('ray-casting-engine', function(Y) {
                         itemFind[Math.floor(item.y)][Math.floor(item.x)] = item; // add new loc
                         item.action = 'move';
                         change = true;
+                    }
+
+                    if(change){
+                        Y.Global.fire('rce:item-move',{
+                            id:i,
+                            type:item.typeId,
+                            action:"move",
+                            x:item.x,
+                            y:item.y
+                        });
                     }
                 }
                 else if(dist <= 1){
