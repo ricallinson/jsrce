@@ -545,6 +545,9 @@ YUI.add('ray-casting-engine', function(Y) {
         change = true; // Do this to force a render all the time
 
         if(change) drawCanvas();
+
+        // One Frame Complete
+        // Report FPS here
     }
 
     function removeWall(x,y){

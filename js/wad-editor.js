@@ -164,9 +164,14 @@ YUI.add('wad-editor', function(Y) {
 
             }else{
 
-                var item = this.wad.items[this.curPalette.id];
+                var item = {
+                        typeId: this.curPalette.id,
+                        type: this.wad.items[this.curPalette.id],
+                        x: parseInt(xy[0]),
+                        y: parseInt(xy[1])
+                    };
 
-                this.wad.itemMap.push({typeId: this.curPalette.id, type: item, x: parseInt(xy[0]), y: parseInt(xy[1])});
+                this.wad.itemMap.push(item);
             }
         }
     }
