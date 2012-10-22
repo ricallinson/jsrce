@@ -80,7 +80,7 @@ YUI().use('node','ray-casting-engine','wad-editor','datasource','json', function
 
         Y.rce(sky,floor,canvas,overlay,wadObj,false);
         
-        editor.drawMap(Y.one('#wad-editor'));
+        // editor.drawMap(Y.one('#wad-editor'));
       },
       failure: function(e){
         alert(e.error.message);
