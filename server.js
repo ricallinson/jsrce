@@ -1,7 +1,7 @@
-var connect = require('connect');
+var connect = require("connect");
 
 connect(
-    connect['static'](__dirname+'/', { maxAge: 0 })
-).listen(8080);
+	connect.static(require("path").join(__dirname))
+).listen(3000);
 
-console.log('Server running...');
+console.log("Running on http://localhost:3000/");
