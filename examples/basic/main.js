@@ -71,13 +71,15 @@ define(["lib/canvas", "lib/engine"], function (Canvas, Engine) {
     engine.drawView(viewport, player, map, engine.samples, engine.pixel);
     // Render the map
     engine.drawMap(viewmap, player, map);
-    // Render the player on the map
+    // Render the player on the map overlay
     engine.drawPlayerOnMap(viewplayer, player, map);
 
     // Now loop
     setInterval(function () {
         if (engine.move(player, map)) {
+            // Render the next frame in the viewprot
             engine.drawView(viewport, player, map, engine.samples, engine.pixel);
+            // Render the players postion on the map overlay
             engine.drawPlayerOnMap(viewplayer, player, map);
         }
     }, 50);
