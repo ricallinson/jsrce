@@ -4,7 +4,42 @@
 
 define(["lib/canvas", "lib/engine"], function (canvas, Engine) {
 
-    var engine = new Engine(canvas);
+    var engine = new Engine(canvas),
+
+        /*
+            A sample map in case one is not provided
+        */
+
+        map = [
+            [1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
+            [1, 0, 0, 0, 1, 0, 0, 0, 0, 1],
+            [1, 0, 0, 0, 0, 0, 0, 1, 0, 1],
+            [1, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+            [1, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+            [1, 0, 0, 0, 0, 0, 0, 1, 0, 1],
+            [1, 1, 0, 1, 0, 0, 1, 1, 0, 1],
+            [1, 1, 0, 0, 0, 0, 0, 0, 0, 1],
+            [1, 1, 0, 0, 0, 0, 0, 0, 0, 1],
+            [1, 1, 1, 1, 1, 1, 1, 1, 1, 1]
+        ],
+
+        /*
+            Holds the players current position
+        */
+
+        player = {
+            pos: {
+                x: 1.1,
+                y: 1.1,
+                z: 1,
+                r: 0.7
+            },
+            vel: {
+                x: 0,
+                y: 0,
+                r: 0
+            }
+        };
 
     // // http://paulirish.com/2011/requestanimationframe-for-smart-animating
     // // shim layer with setTimeout fallback
@@ -30,12 +65,12 @@ define(["lib/canvas", "lib/engine"], function (canvas, Engine) {
     }, false);
 
     // Render the first frame
-    engine.draw(canvas, engine.player, engine.map, engine.samples, engine.pixel);
+    engine.draw(canvas, player, map, engine.samples, engine.pixel);
 
     // Now loop
     setInterval(function () {
-        if (engine.move(engine.player, engine.map)) {
-            engine.draw(canvas, engine.player, engine.map, engine.samples, engine.pixel);
+        if (engine.move(player, map)) {
+            engine.draw(canvas, player, map, engine.samples, engine.pixel);
         }
     }, 50);
 
