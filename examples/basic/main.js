@@ -2,9 +2,12 @@
 
 "use strict";
 
-define(["lib/canvas", "lib/engine"], function (canvas, Engine) {
+define(["lib/canvas", "lib/engine"], function (Canvas, Engine) {
 
-    var engine = new Engine(canvas),
+    var viewport = new Canvas("viewport", 600, 600),
+        viewmap = new Canvas("viewmap", 100, 100),
+        viewplayer = new Canvas("viewplayer", 100, 100),
+        engine = new Engine(viewport),
 
         /*
             A sample map in case one is not provided
@@ -18,7 +21,7 @@ define(["lib/canvas", "lib/engine"], function (canvas, Engine) {
             [1, 0, 0, 0, 0, 0, 0, 0, 0, 1],
             [1, 0, 0, 0, 0, 0, 0, 1, 0, 1],
             [1, 1, 0, 1, 0, 0, 1, 1, 0, 1],
-            [1, 1, 0, 0, 0, 0, 0, 0, 0, 1],
+            [1, 1, 0, 0, 0, 0, 1, 0, 0, 1],
             [1, 1, 0, 0, 0, 0, 0, 0, 0, 1],
             [1, 1, 1, 1, 1, 1, 1, 1, 1, 1]
         ],
@@ -65,12 +68,17 @@ define(["lib/canvas", "lib/engine"], function (canvas, Engine) {
     }, false);
 
     // Render the first frame
-    engine.draw(canvas, player, map, engine.samples, engine.pixel);
+    engine.drawView(viewport, player, map, engine.samples, engine.pixel);
+    // Render the map
+    engine.drawMap(viewmap, player, map);
+    // Render the player on the map
+    engine.drawPlayerOnMap(viewplayer, player, map);
 
     // Now loop
     setInterval(function () {
         if (engine.move(player, map)) {
-            engine.draw(canvas, player, map, engine.samples, engine.pixel);
+            engine.drawView(viewport, player, map, engine.samples, engine.pixel);
+            engine.drawPlayerOnMap(viewplayer, player, map);
         }
     }, 50);
 
