@@ -79,6 +79,8 @@ define(["lib/canvas", "lib/engine"], function (Canvas, Engine) {
         if (engine.move(player, map)) {
             // Render the next frame in the viewprot
             engine.drawView(viewport, player, map, engine.samples, engine.pixel);
+            // Render the map in case the walls changed
+            engine.drawMap(viewmap, player, map);
             // Render the players postion on the map overlay
             engine.drawPlayerOnMap(viewplayer, player, map);
         }
