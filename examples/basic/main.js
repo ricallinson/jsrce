@@ -84,6 +84,6 @@ define(["lib/canvas", "lib/engine"], function (Canvas, Engine) {
             // Render the players postion on the map overlay
             engine.drawPlayerOnMap(viewplayer, player, map);
         }
-    }, 50);
+    }, 1000 / 60);
 
 });
