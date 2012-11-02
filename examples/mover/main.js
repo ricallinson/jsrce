@@ -11,6 +11,7 @@ define(["lib/canvas", "lib/engine"], function (Canvas, Engine) {
         engine,
         height = window.innerHeight,
         width = window.innerWidth,
+        touchRotation = 5000,
 
         /*
             A sample map in case one is not provided
@@ -45,8 +46,8 @@ define(["lib/canvas", "lib/engine"], function (Canvas, Engine) {
                 y: 0,
                 r: 0
             },
-            movementSpeed: 0.02,
-            rotationSpeed: 0.02
+            movementSpeed: 0.03,
+            rotationSpeed: 0.03
         };
 
     // Use the smallest side
@@ -57,12 +58,18 @@ define(["lib/canvas", "lib/engine"], function (Canvas, Engine) {
     }
 
     viewport = new Canvas("viewport", width, height);
-    viewmap = new Canvas("viewmap", 100, 100);
-    viewplayer = new Canvas("viewplayer", 100, 100);
     engine = new Engine(viewport);
 
-    // Pixel size
-    engine.pixel = 4;
+    // Setup user-agent based numbers
+    // alert(navigator.userAgent);
+    if (/Android/.test(navigator.userAgent)) {
+        player.movementSpeed = player.movementSpeed * 2.5;
+        engine.pixel = 4;
+        touchRotation = 2500;
+    }
+    if (/iPad/.test(navigator.userAgent)) {
+        touchRotation = 10000;
+    }
 
     // Always move forward
     engine.changeKeyPressed(38, true);
@@ -71,21 +78,23 @@ define(["lib/canvas", "lib/engine"], function (Canvas, Engine) {
         Move vars
     */
     var down = false,
-        x = 0,
-        DEADZONE = 20;
+        x = 0;
 
-    function rotatePlayer(x, newX) {
+    function rotatePlayer(player, x, newX) {
         if (down) {
-            if (x - DEADZONE > newX) {
+            if (x > newX) {
+                player.rotationSpeed = ((x - newX) / touchRotation) * 1;
                 engine.changeKeyPressed(39, false);
                 engine.changeKeyPressed(37, true);
-            } else if (x + DEADZONE < newX) {
+            } else if (x < newX) {
+                player.rotationSpeed = ((newX - x) / touchRotation) * 1;
                 engine.changeKeyPressed(37, false);
                 engine.changeKeyPressed(39, true);
             } else {
                 engine.changeKeyPressed(37, false);
                 engine.changeKeyPressed(39, false);
             }
+            // document.getElementById("show").innerHTML = player.rotationSpeed;
         }
     }
 
@@ -102,8 +111,7 @@ define(["lib/canvas", "lib/engine"], function (Canvas, Engine) {
         e.preventDefault();
         var newX = e.touches.item(0).clientX;
         if (down) {
-            rotatePlayer(x, newX);
-            document.getElementById("show").innerHTML = newX;
+            rotatePlayer(player, x, newX);
         }
     }, false);
     window.addEventListener('touchend', function(e) {
@@ -124,8 +132,7 @@ define(["lib/canvas", "lib/engine"], function (Canvas, Engine) {
     window.addEventListener("mousemove", function (e) {
         var newX = e.x;
         if (down) {
-            rotatePlayer(x, newX);
-            document.getElementById("show").innerHTML = newX;
+            rotatePlayer(player, x, newX);
         }
     }, false);
     window.addEventListener("mouseup", function (e) {
@@ -152,6 +159,9 @@ define(["lib/canvas", "lib/engine"], function (Canvas, Engine) {
     engine.drawView(viewport, player, map, engine.samples, engine.pixel);
 
     if (drawMap) {
+        // Setup the map
+        viewmap = new Canvas("viewmap", 100, 100);
+        viewplayer = new Canvas("viewplayer", 100, 100);
         // Render the map
         engine.drawMap(viewmap, player, map);
         // Render the player on the map overlay
