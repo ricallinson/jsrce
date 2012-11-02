@@ -1,0 +1,24 @@
+<!DOCTYPE HTML>
+<html lang="en">
+<head>
+<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1, maximum-scale=1, user-scalable=0" />
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+<link rel="stylesheet" href="./main.css" type="text/css" />
+<script src="../../lib/require.js"></script>
+<script>
+	require.config({
+		baseUrl: "../../"
+	});
+	require( ["examples/mover/main"]);
+</script>
+</head>
+<body>
+<canvas id="viewport"></canvas>
+<div class="map">
+	<canvas id="viewmap"></canvas>
+	<canvas id="viewplayer"></canvas>
+</div>
+<div id="show">xxx</div>
+</body>
+</html>

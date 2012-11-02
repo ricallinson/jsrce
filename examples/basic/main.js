@@ -41,7 +41,8 @@ define(["lib/canvas", "lib/engine"], function (Canvas, Engine) {
                 x: 0,
                 y: 0,
                 r: 0
-            }
+            },
+            speed: 0 // speeds up forward backward movment
         };
 
     // // http://paulirish.com/2011/requestanimationframe-for-smart-animating
