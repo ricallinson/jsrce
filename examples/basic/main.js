@@ -32,8 +32,8 @@ define(["lib/canvas", "lib/engine"], function (Canvas, Engine) {
 
         player = {
             pos: {
-                x: 1.1,
-                y: 1.1,
+                x: 2,
+                y: 2,
                 z: 1,
                 r: 0.7
             },
