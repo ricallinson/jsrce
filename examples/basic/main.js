@@ -32,8 +32,8 @@ define(["lib/canvas", "lib/engine"], function (Canvas, Engine) {
 
         player = {
             pos: {
-                x: 2,
-                y: 2,
+                x: 1.1,
+                y: 1.1,
                 z: 1,
                 r: 0.7
             },
@@ -42,7 +42,8 @@ define(["lib/canvas", "lib/engine"], function (Canvas, Engine) {
                 y: 0,
                 r: 0
             },
-            speed: 0 // speeds up forward backward movment
+            movementSpeed: 0.03,
+            rotationSpeed: 0.03
         };
 
     // // http://paulirish.com/2011/requestanimationframe-for-smart-animating
