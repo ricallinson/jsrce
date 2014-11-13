@@ -4,7 +4,7 @@ A simple ray casting engine for creating and rendering 2D maps in pseudo 3D.
 
 ## Install
 
-    npm install connect@2.X.X
+    npm install connect@2.x.x
 
 ## Run Example
 
