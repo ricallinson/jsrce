@@ -43,21 +43,9 @@ define(["lib/canvas", "lib/engine"], function (Canvas, Engine) {
                 r: 0
             },
             movementSpeed: 0.03,
-            rotationSpeed: 0.03
+            rotationSpeed: 0.03,
+            strafingSpeed: 0.05
         };
-
-    // // http://paulirish.com/2011/requestanimationframe-for-smart-animating
-    // // shim layer with setTimeout fallback
-    // window.requestAnimFrame = (function () {
-    //     return window.requestAnimationFrame ||
-    //         window.webkitRequestAnimationFrame ||
-    //         window.mozRequestAnimationFrame ||
-    //         window.oRequestAnimationFrame ||
-    //         window.msRequestAnimationFrame ||
-    //         function (callback) {
-    //             window.setTimeout(callback, 1000 / 60);
-    //         };
-    // }());
 
     window.addEventListener("keydown", function (e) {
         e.preventDefault();
@@ -69,22 +57,21 @@ define(["lib/canvas", "lib/engine"], function (Canvas, Engine) {
         engine.changeKeyPressed(e.keyCode, false);
     }, false);
 
-    // Render the first frame
-    engine.drawView(viewport, player, map, engine.samples, engine.pixel);
-    // Render the map
-    engine.drawMap(viewmap, player, map);
-    // Render the player on the map overlay
-    engine.drawPlayerOnMap(viewplayer, player, map);
+    function draw(map) {
+        // Render the first frame
+        engine.drawView(viewport, player, map, engine.samples, engine.pixel);
+        // Render the map
+        engine.drawMap(viewmap, player, map);
+        // Render the player on the map overlay
+        engine.drawPlayerOnMap(viewplayer, player, map);
+    }
+
+    draw(map);
 
     // Now loop
     setInterval(function () {
         if (engine.move(player, map)) {
-            // Render the next frame in the viewprot
-            engine.drawView(viewport, player, map, engine.samples, engine.pixel);
-            // Render the map in case the walls changed
-            engine.drawMap(viewmap, player, map);
-            // Render the players postion on the map overlay
-            engine.drawPlayerOnMap(viewplayer, player, map);
+            draw(map)
         }
     }, 1000 / 60);
 
