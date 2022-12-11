@@ -1,7 +1,7 @@
 body { margin: 0; padding: 0; background: #222;}
 canvas { display: block; margin: 0 auto; }
 #viewport {
-	background-color: #aaa;
+	background-color: #000;
 }
 #viewmap, #viewplayer {
 	position: absolute;
